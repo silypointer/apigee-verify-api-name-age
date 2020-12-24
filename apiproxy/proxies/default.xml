@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ProxyEndpoint name="default">
+    <PreFlow name="PreFlow">
+        <Request>
+            <Step>
+                <Name>Verify-API-Key-1</Name>
+            </Step>
+            <Step>
+                <Name>Raise-Fault-2</Name>
+                <Condition>verifyapikey.Verify-API-Key-1.failed = true</Condition>
+            </Step>
+            <Step>
+                <Name>Extract-Variables-1</Name>
+            </Step>
+            <Step>
+                <Name>Raise-Fault-1</Name>
+                <Condition>name = null OR name = "" OR age = null OR age = ""</Condition>
+            </Step>
+        </Request>
+        <Response>
+            <Step>
+                <Name>Assign-Message-1</Name>
+            </Step>
+        </Response>
+    </PreFlow>
+    <Flows/>
+    <PostFlow name="PostFlow">
+        <Request/>
+        <Response/>
+    </PostFlow>
+    <HTTPProxyConnection>
+        <BasePath>/testverifyapi/v1/name-age</BasePath>
+        <VirtualHost>secure</VirtualHost>
+    </HTTPProxyConnection>
+    <RouteRule name="noroute"/>
+</ProxyEndpoint>
